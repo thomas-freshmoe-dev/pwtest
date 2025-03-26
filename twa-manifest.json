@@ -10,7 +10,7 @@
   "navigationColorDark": "#000000",
   "navigationDividerColor": "#000000",
   "navigationDividerColorDark": "#000000",
-  "backgroundColor": "#FFFFFF",
+  "backgroundColor": "#5BBA47",
   "enableNotifications": true,
   "startUrl": "/",
   "iconUrl": "https://pwtest.vercel.app/icons/icon-512x512.png",

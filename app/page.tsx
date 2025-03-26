@@ -1,33 +1,36 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Trash2 } from 'lucide-react';
-import { useTodos } from '@/hooks/useTodos';
-import InstallPWA from '@/components/InstallPWA';
-import ShareApp from '@/components/ShareApp';
+import { useState } from "react";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Trash2 } from "lucide-react";
+import { useTodos } from "@/hooks/useTodos";
+import InstallPWA from "@/components/InstallPWA";
+import ShareApp from "@/components/ShareApp";
+import icon from "@/public/icons/icon-192x192 copy.png";
+import Image from "next/image";
 
 export default function Home() {
-  const [newTodo, setNewTodo] = useState('');
+  const [newTodo, setNewTodo] = useState("");
   const { todos, addTodo, toggleTodo, deleteTodo } = useTodos();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (newTodo.trim()) {
       addTodo(newTodo.trim());
-      setNewTodo('');
+      setNewTodo("");
     }
   };
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-4">
       <div className="max-w-md mx-auto space-y-6">
+        <Image src={icon} alt="App icon" width={192} height={192} />
         <Card className="p-6">
           <h1 className="text-2xl font-bold text-center mb-6">Todo List</h1>
-          
+
           <form onSubmit={handleSubmit} className="flex gap-2 mb-6">
             <Input
               type="text"
@@ -43,22 +46,23 @@ export default function Home() {
             {todos.map((todo) => (
               <div
                 key={todo.id}
-                className="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm"
-              >
+                className="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
                 <div className="flex items-center gap-3">
                   <Checkbox
                     checked={todo.completed}
                     onCheckedChange={() => toggleTodo(todo.id)}
                   />
-                  <span className={todo.completed ? 'line-through text-gray-500' : ''}>
+                  <span
+                    className={
+                      todo.completed ? "line-through text-gray-500" : ""
+                    }>
                     {todo.text}
                   </span>
                 </div>
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={() => deleteTodo(todo.id)}
-                >
+                  onClick={() => deleteTodo(todo.id)}>
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
