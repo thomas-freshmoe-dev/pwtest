@@ -9,7 +9,7 @@ import { Trash2 } from "lucide-react";
 import { useTodos } from "@/hooks/useTodos";
 import InstallPWA from "@/components/InstallPWA";
 import ShareApp from "@/components/ShareApp";
-import icon from "@/public/icons/icon-192x192 copy.png";
+import icon from "@/public/icons/icon-192x192.png";
 import Image from "next/image";
 
 export default function Home() {
