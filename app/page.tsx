@@ -1,6 +1,6 @@
-"use client";
+"use client"; // Add this at the very top
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -9,8 +9,6 @@ import { Trash2 } from "lucide-react";
 import { useTodos } from "@/hooks/useTodos";
 import InstallPWA from "@/components/InstallPWA";
 import ShareApp from "@/components/ShareApp";
-import icon from "@/public/icons/icon-192x192.png";
-import Image from "next/image";
 
 export default function Home() {
   const [newTodo, setNewTodo] = useState("");
@@ -24,10 +22,65 @@ export default function Home() {
     }
   };
 
+  // Function to trigger fullscreen
+  const handleFullscreen = () => {
+    // Try to request fullscreen and handle errors
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(() => {
+        alert(
+          "Fullscreen request failed. Please allow fullscreen permissions."
+        );
+      });
+    } else if (document.documentElement.mozRequestFullScreen) {
+      // Firefox
+      document.documentElement.mozRequestFullScreen().catch(() => {
+        alert(
+          "Fullscreen request failed. Please allow fullscreen permissions."
+        );
+      });
+    } else if (document.documentElement.webkitRequestFullscreen) {
+      // Chrome, Safari, Opera
+      document.documentElement.webkitRequestFullscreen().catch(() => {
+        alert(
+          "Fullscreen request failed. Please allow fullscreen permissions."
+        );
+      });
+    } else if (document.documentElement.msRequestFullscreen) {
+      // IE/Edge
+      document.documentElement.msRequestFullscreen().catch(() => {
+        alert(
+          "Fullscreen request failed. Please allow fullscreen permissions."
+        );
+      });
+    } else {
+      alert("Fullscreen is not supported by your browser.");
+    }
+  };
+
+  // Check for restrictions on phone and notify user (Optional, for devices that prevent fullscreen automatically)
+  const checkForFullscreenPermission = () => {
+    // Check if fullscreen is supported on mobile devices
+    if (!document.documentElement.requestFullscreen) {
+      alert("Your device does not support fullscreen mode.");
+      return;
+    }
+
+    // You can also check for specific conditions here like screen size or device type if necessary
+    if (window.innerWidth <= 768) {
+      alert(
+        "On mobile devices, fullscreen may not work automatically. Please click 'Go Fullscreen' to trigger."
+      );
+    }
+  };
+
+  useEffect(() => {
+    // Check for fullscreen permission or restrictions after component mount
+    checkForFullscreenPermission();
+  }, []);
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-4">
       <div className="max-w-md mx-auto space-y-6">
-        <Image src={icon} alt="App icon" width={192} height={192} />
         <Card className="p-6">
           <h1 className="text-2xl font-bold text-center mb-6">Todo List</h1>
 
@@ -70,6 +123,12 @@ export default function Home() {
           </div>
         </Card>
       </div>
+
+      {/* <div className="text-center mt-4"> */}
+      {/* Button to trigger fullscreen */}
+      {/* <Button onClick={handleFullscreen}>Go Fullscreen</Button> */}
+      {/* </div> */}
+
       <InstallPWA />
       <ShareApp />
     </main>
