@@ -18,7 +18,7 @@
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
     "path": "C:\\Users\\User\\OneDrive\\Desktop\\test\\project\\keystore.jks",
-    "alias": "android"
+    "alias": "upload"
   },
   "appVersionName": "1",
   "appVersionCode": 1,
